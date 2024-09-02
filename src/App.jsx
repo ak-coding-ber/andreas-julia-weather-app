@@ -17,6 +17,10 @@ function App() {
     setActivities([...activities, { id: uid(), ...data }]);
   }
 
+  function handleDeleteActivity(id) {
+    setActivities(activities.filter((activity) => activity.id !== id));
+  }
+
   const filteredActivities = activities.filter(
     (activity) => activity.isForGoodWeather === weather
   );
@@ -43,6 +47,11 @@ function App() {
 
   useEffect(() => {
     loadWeather();
+    const intervalId = setInterval(() => {
+      loadWeather();
+    }, 5000);
+    // clear the interval via cleanup function to prevent having multiple timers running that were not stopped
+    return () => clearInterval(intervalId);
   }, []);
 
   console.log("Filter :", filteredActivities);
@@ -54,7 +63,11 @@ function App() {
         {icon} {temp}°C
       </h1>
 
-      <List isGoodWeather={weather} activities={filteredActivities} />
+      <List
+        isGoodWeather={weather}
+        activities={filteredActivities}
+        onDeleteActivity={handleDeleteActivity}
+      />
       <Form onAddActivity={handleAddActivity} />
     </>
   );
