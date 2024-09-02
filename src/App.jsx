@@ -3,38 +3,58 @@ import "./App.css";
 import Form from "./components/Form";
 import List from "./components/List";
 import { uid } from "uid";
-/**
- * Currently, the list displays all activities, regardless of whether they are good or bad weather activities. The main purpose of the app, however, is to show activities depending on the current (good / bad) weather fetched from an API, so the list needs to be filtered.
-
-
-
-Note: For reasons of simplicity (i.e. it will be replaced in the next task anyway), 
-we will use a hard coded variable to imitate good or bad weather for now.
-
-Filter the activities for those whose key isForGoodWeather is equal to the global isGoodWeather variable.
-Instead of all activities, pass the filtered activities to the List component.
-In the List component, add a headline depending on the global isGoodWeather variable.
- */
+import { useState, useEffect } from "react";
 
 function App() {
   const [activities, setActivities] = useLocalStorageState("activities", {
     defaultValue: [],
   });
+  const [weather, setWeather] = useState(false);
+  const [icon, setIcon] = useState("");
+  const [temp, setTemp] = useState("");
 
   function handleAddActivity(data) {
     setActivities([...activities, { id: uid(), ...data }]);
   }
-  const isGoodWeather = false;
+
   const filteredActivities = activities.filter(
-    (activity) => activity.isForGoodWeather === isGoodWeather
+    (activity) => activity.isForGoodWeather === weather
   );
+
+  async function loadWeather() {
+    try {
+      const response = await fetch(
+        "https://example-apis.vercel.app/api/weather"
+      );
+      const data = await response.json();
+      if (!response.ok) {
+        console.log("error response");
+      } else {
+        setWeather(data.isGoodWeather);
+        setIcon(data.condition);
+        setTemp(data.temperature);
+
+        console.log("Weather :", data.isGoodWeather);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    loadWeather();
+  }, []);
 
   console.log("Filter :", filteredActivities);
   //console.log("Activities :", activities);
 
   return (
     <>
-      <List isGoodWeather={isGoodWeather} activities={filteredActivities} />
+      <h1 id="icon">
+        {icon} {temp}°C
+      </h1>
+
+      <List isGoodWeather={weather} activities={filteredActivities} />
       <Form onAddActivity={handleAddActivity} />
     </>
   );
