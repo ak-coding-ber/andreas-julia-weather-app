@@ -10,6 +10,8 @@ function App() {
     defaultValue: [],
   });
   const [weather, setWeather] = useState(false);
+  const [icon, setIcon] = useState("");
+  const [temp, setTemp] = useState("");
 
   function handleAddActivity(data) {
     setActivities([...activities, { id: uid(), ...data }]);
@@ -29,6 +31,9 @@ function App() {
         console.log("error response");
       } else {
         setWeather(data.isGoodWeather);
+        setIcon(data.condition);
+        setTemp(data.temperature);
+
         console.log("Weather :", data.isGoodWeather);
       }
     } catch (error) {
@@ -45,6 +50,10 @@ function App() {
 
   return (
     <>
+      <h1 id="icon">
+        {icon} {temp}°C
+      </h1>
+
       <List isGoodWeather={weather} activities={filteredActivities} />
       <Form onAddActivity={handleAddActivity} />
     </>
