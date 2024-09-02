@@ -2,14 +2,9 @@ export default function Form({ onAddActivity }) {
   function handleSubmit(event) {
     event.preventDefault();
 
-    // const formData = new FormData(event.target);
-    // const data = Object.fromEntries(formData);
-
     const formElements = event.target.elements;
     const isForGoodWeather = formElements.isForGoodWeather.checked;
     const activityName = formElements.name.value;
-
-    // console.log(isForGoodWeather, activityName);
 
     const data = {
       name: activityName,
@@ -17,8 +12,6 @@ export default function Form({ onAddActivity }) {
     };
 
     onAddActivity(data);
-
-    // console.log(data);
 
     event.target.reset();
     event.target.name.focus();
