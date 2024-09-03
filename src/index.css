@@ -65,4 +65,21 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+
+  .activity-list__item {
+    background-color: #f9f9f9;
+    border: 2px solid #ccc;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .activity-list__item {
+    background-color: #ffffff;
+    color: #213547;
+  }
+
+  .form__field input[type="text"] {
+    background-color: #242424;
+    color: #ffffff;
+  }
 }
