@@ -2,6 +2,7 @@ import useLocalStorageState from "use-local-storage-state";
 import "./App.css";
 import Form from "./components/Form";
 import List from "./components/List";
+import Region from "./components/Region";
 import { uid } from "uid";
 import { useState, useEffect } from "react";
 
@@ -12,6 +13,7 @@ function App() {
   const [weather, setWeather] = useState(false);
   const [icon, setIcon] = useState("");
   const [temp, setTemp] = useState("");
+  const [location, setLocation] = useState("europe");
 
   function handleAddActivity(data) {
     setActivities([...activities, { id: uid(), ...data }]);
@@ -21,14 +23,18 @@ function App() {
     setActivities(activities.filter((activity) => activity.id !== id));
   }
 
+  function handleRegionTabClick(clickedRegion) {
+    setLocation(clickedRegion);
+  }
+
   const filteredActivities = activities.filter(
     (activity) => activity.isForGoodWeather === weather
   );
 
-  async function loadWeather() {
+  async function loadWeather(location) {
     try {
       const response = await fetch(
-        "https://example-apis.vercel.app/api/weather"
+        `https://example-apis.vercel.app/api/weather/${location}`
       );
       const data = await response.json();
       if (!response.ok) {
@@ -44,20 +50,20 @@ function App() {
   }
 
   useEffect(() => {
-    loadWeather();
+    loadWeather(location);
     const intervalId = setInterval(() => {
-      loadWeather();
+      loadWeather(location);
     }, 5000);
     // clear the interval via cleanup function to prevent having multiple timers running that were not stopped
     return () => clearInterval(intervalId);
-  }, []);
+  }, [location]);
 
   return (
     <>
       <h1 id="icon">
         {icon} {temp}°C
       </h1>
-
+      <Region location={location} onRegionTabClick={handleRegionTabClick} />
       <List
         isGoodWeather={weather}
         activities={filteredActivities}

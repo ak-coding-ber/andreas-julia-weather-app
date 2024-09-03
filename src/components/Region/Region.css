@@ -1,0 +1,9 @@
+#region-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5%;
+}
+
+.region-button {
+  margin: 5px 0;
+}
