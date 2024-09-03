@@ -25,7 +25,13 @@ export default function Form({ onAddActivity }) {
       <div className="form__fields">
         <div className="form__field">
           <label htmlFor="name">Name</label>
-          <input type="text" name="name" id="name" />
+          <input
+            type="text"
+            name="name"
+            id="name"
+            maxLength="50"
+            placeholder="Enter activity (max 50 characters)"
+          />
         </div>
         <div className="entry-form__field">
           <label htmlFor="isForGoodWeather">Good-Weather Activity </label>
