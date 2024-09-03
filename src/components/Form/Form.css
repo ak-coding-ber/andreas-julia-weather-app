@@ -1,7 +1,80 @@
+.form {
+  background-color: #f9f9f9;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 400px;
+  margin: 0 auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 .form__title {
-  margin: 50px;
+  font-size: 120%;
+  margin-top: 1%;
+  margin-bottom: 20px;
+  text-align: left;
+  color: #333;
+}
+
+.form__fields {
+  display: flex;
+  flex-direction: column;
 }
 
 .form__field {
-  margin: 50px;
+  margin-bottom: 10%;
+}
+
+.form__field label {
+  display: block;
+  text-align: left;
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.form__field input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.entry-form__field {
+  display: flex;
+  align-items: center;
+}
+
+.entry-form__field label {
+  font-size: 16px;
+  color: #555;
+  margin-right: 10px;
+}
+
+.entry-form__field input[type="checkbox"] {
+  transform: scale(1.5);
+}
+
+.entry-form__button-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.entry-form__button-wrapper button {
+  background-color: lightskyblue;
+  color: white;
+  padding: 10px 20px;
+  margin-top: -10%;
+  margin-left: 70%;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.entry-form__button-wrapper button:hover {
+  background-color: darkblue;
 }
