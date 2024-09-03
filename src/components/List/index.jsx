@@ -1,8 +1,6 @@
 import "./List.css";
 
 export default function List({ activities, isGoodWeather, onDeleteActivity }) {
-  console.log(activities);
-
   return (
     <>
       <h2>

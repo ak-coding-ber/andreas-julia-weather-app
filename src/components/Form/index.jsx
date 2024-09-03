@@ -43,7 +43,6 @@ export default function Form({ onAddActivity }) {
         </div>
         <div className="entry-form__button-wrapper">
           <button type="submit">Submit</button>
-          {/* <Button type="submit">Create</Button> */}
         </div>
       </div>
     </form>

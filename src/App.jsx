@@ -37,8 +37,6 @@ function App() {
         setWeather(data.isGoodWeather);
         setIcon(data.condition);
         setTemp(data.temperature);
-
-        console.log("Weather :", data.isGoodWeather);
       }
     } catch (error) {
       console.log(error);
@@ -53,9 +51,6 @@ function App() {
     // clear the interval via cleanup function to prevent having multiple timers running that were not stopped
     return () => clearInterval(intervalId);
   }, []);
-
-  console.log("Filter :", filteredActivities);
-  //console.log("Activities :", activities);
 
   return (
     <>
