@@ -30,7 +30,7 @@ export default function Form({ onAddActivity }) {
             name="name"
             id="name"
             maxLength="50"
-            placeholder="Enter activity (max 50 characters)"
+            placeholder="(max 50 characters)"
           />
         </div>
         <div className="entry-form__field">
