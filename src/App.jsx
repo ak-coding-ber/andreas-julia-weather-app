@@ -12,6 +12,7 @@ function App() {
   const [weather, setWeather] = useState(false);
   const [icon, setIcon] = useState("");
   const [temp, setTemp] = useState("");
+  const [loading, setLoading] = useState(true);
 
   function handleAddActivity(data) {
     setActivities([...activities, { id: uid(), ...data }]);
@@ -37,6 +38,8 @@ function App() {
         setWeather(data.isGoodWeather);
         setIcon(data.condition);
         setTemp(data.temperature);
+        // signal that the data fetch is complete and the page can be rendered
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -54,16 +57,21 @@ function App() {
 
   return (
     <>
-      <h1 id="icon">
-        {icon} {temp}°C
-      </h1>
-
-      <List
-        isGoodWeather={weather}
-        activities={filteredActivities}
-        onDeleteActivity={handleDeleteActivity}
-      />
-      <Form onAddActivity={handleAddActivity} />
+      {loading ? (
+        <p>Loading Weather Information...</p>
+      ) : (
+        <>
+          <h1 id="icon">
+            {icon} {temp}°C
+          </h1>
+          <List
+            isGoodWeather={weather}
+            activities={filteredActivities}
+            onDeleteActivity={handleDeleteActivity}
+          />
+          <Form onAddActivity={handleAddActivity} />
+        </>
+      )}
     </>
   );
 }
